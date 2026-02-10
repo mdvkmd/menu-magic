@@ -6,8 +6,9 @@ import {
   FileText, 
   Heart, 
   Cloud, 
+  Rocket,
+  Shield,
   MessageSquare, 
-  ScrollText,
   ChevronLeft,
   ChevronDown,
   ChevronRight
@@ -30,14 +31,14 @@ const navSections: NavSection[] = [
   {
     label: "DASHBOARD",
     items: [
-      { title: "Overview", icon: LayoutDashboard, href: "/overview", isActive: true },
+      { title: "Overview", icon: LayoutDashboard, href: "/overview" },
     ],
   },
   {
     label: "ANALYTICS",
     items: [
       { title: "Business Metrics", icon: TrendingUp, href: "/business-metrics" },
-      { title: "Analytics", icon: BarChart3, href: "/analytics" },
+      { title: "Google Analytics", icon: BarChart3, href: "/analytics" },
       { title: "Reports", icon: FileText, href: "/reports" },
     ],
   },
@@ -46,18 +47,14 @@ const navSections: NavSection[] = [
     items: [
       { title: "Server Health", icon: Heart, href: "/server-health" },
       { title: "CDN Statistics", icon: Cloud, href: "/cdn-statistics" },
+      { title: "Deployments", icon: Rocket, href: "/deployments", isActive: true },
+      { title: "Certificate Manager", icon: Shield, href: "/certificate-manager" },
     ],
   },
   {
     label: "AI ASSISTANT",
     items: [
       { title: "Chat", icon: MessageSquare, href: "/chat" },
-    ],
-  },
-  {
-    label: "OBSERVABILITY",
-    items: [
-      { title: "Logs", icon: ScrollText, href: "/logs" },
     ],
   },
 ];
@@ -83,7 +80,7 @@ export function DashboardSidebar({ collapsed = false, onCollapsedChange }: Dashb
   return (
     <aside 
       className={cn(
-        "h-screen flex flex-col border-r border-sidebar-border transition-all duration-300 ease-in-out",
+        "h-screen sticky top-0 flex flex-col border-r border-sidebar-border transition-all duration-300 ease-in-out",
         "glass",
         collapsed ? "w-16" : "w-64"
       )}
@@ -111,7 +108,6 @@ export function DashboardSidebar({ collapsed = false, onCollapsedChange }: Dashb
           
           return (
             <div key={section.label} className="mb-4">
-              {/* Section Header */}
               {!collapsed && (
                 <button
                   onClick={() => toggleSection(section.label)}
@@ -126,7 +122,6 @@ export function DashboardSidebar({ collapsed = false, onCollapsedChange }: Dashb
                 </button>
               )}
 
-              {/* Section Items */}
               {(collapsed || isExpanded) && (
                 <div className="space-y-1">
                   {section.items.map((item) => (
